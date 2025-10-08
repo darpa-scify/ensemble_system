@@ -1,4 +1,3 @@
-
 # Ensembler
 
 This repository contains an ensemble system for combining multiple model outputs and an evaluation harness for testing the system.
@@ -8,7 +7,7 @@ This repository contains an ensemble system for combining multiple model outputs
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/darpa-scify/ensemble_system.git
 cd ensembler
 ```
 
@@ -23,20 +22,14 @@ pip install -r requirements.txt
 ### 3. Download Evaluation Data
 
 Download the evaluation data from Google Drive:
-
-```bash
-# Example using gdown (install with: pip install gdown)
-gdown <EVAL_DATA_DRIVE_LINK>
-```
+https://drive.google.com/drive/folders/1hU7YP6HVUc7CGnSZy1E4boaTuLbn6nmS?usp=drive_link
 
 ### 4. Download and Extract Runs Data
 
-Download the runs data from Google Drive and extract it to the `runs` folder:
+Download the runs data from Google Drive link below and extract it to the `runs` folder:
+https://drive.google.com/drive/folders/1VwJ6lPLuez-KQVQviFGZIJVqbe9MR5OI?usp=drive_link
 
-```bash
-# Replace <RUNS_DATA_DRIVE_LINK> with the actual Google Drive link
-gdown <RUNS_DATA_DRIVE_LINK>
-
+```
 # Create runs directory if it doesn't exist
 mkdir -p runs
 
@@ -52,6 +45,9 @@ done
 # Remove all zip files after extraction (optional)
 rm *.zip
 ```
+
+### 5. Anthropic access required
+Add an environment file with API key for anthropic
 
 ## Using the eval harness to run the ensembler script
 
