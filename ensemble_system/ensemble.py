@@ -8,10 +8,10 @@ from eval_harness.eval_types import Assessment, Problem
 def baseline_ensemble(problem: Problem, ctx: EvalContext, num_attempts: int = 3) -> SystemResult:
     """Run all the other baseline systems, then ask Claude to merge them"""
     subsystem_configs = {
-        # "Claimspy_V1": ("runs/gemini_websearch_oct2", "ask_gemini_web_search", "gemini_websearch"),
-        "CodeScientist": ("runs/codescientist_run1", "codescientist_run1_oct3", "codescientist"),
-        "ScholarQA": ("runs/scholarqa_assessments", "scholar_qa_run1_oct4", "scholarqa"),
-        "Claimspy_V2": ("runs/gpt-5-full-run-0928", "claimspy_v2", "claimspy_v2"),
+        # "Claimspy_V1": ("runs/claimspy_v1_ICL_Agent_2", "ask_gemini_web_search", "claimspy_v1_ICL_Agent_2"),
+        "CodeScientist": ("runs/codescientist", "codescientist_run1_oct3", "codescientist"),
+        "ScholarQA": ("runs/scholar_qa", "scholar_qa_run1_oct4", "scholarqa"),
+        "Claimspy_V2": ("runs/claimspy_v2", "claimspy_v2", "claimspy_v2"),
     }
     
     assessments = []

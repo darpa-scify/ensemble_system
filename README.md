@@ -26,7 +26,7 @@ https://drive.google.com/drive/folders/1hU7YP6HVUc7CGnSZy1E4boaTuLbn6nmS?usp=dri
 
 ### 4. Download and Extract Runs Data
 
-Download the runs data from Google Drive link below and extract it to the `runs` folder:
+Download and unzip the runs data from Google Drive link below and extract it to the `runs` folder:
 https://drive.google.com/drive/folders/1VwJ6lPLuez-KQVQviFGZIJVqbe9MR5OI?usp=drive_link
 
 ```
@@ -35,7 +35,7 @@ mkdir -p runs
 
 # Extract all downloaded zip files to the runs folder
 # This will extract all zip files in the current directory to the runs folder
-for zip_file in *.zip; do
+for zip_file in DARPA_scify_ensembling/*.zip; do
     if [ -f "$zip_file" ]; then
         echo "Extracting $zip_file..."
         unzip "$zip_file" -d runs/
