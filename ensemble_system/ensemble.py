@@ -2,7 +2,7 @@ from eval_harness.eval_types import EvalContext, SystemResult
 import json
 from pathlib import Path
 from rich import print as rprint
-from ensemble_utils import ensemble_with_retries
+from ensemble_system.ensemble_utils import ensemble_with_retries
 from eval_harness.eval_types import Assessment, Problem
 
 def baseline_ensemble(problem: Problem, ctx: EvalContext, num_attempts: int = 3) -> SystemResult:

@@ -8,12 +8,11 @@ from anthropic import Anthropic
 import traceback
 # from scifytypes import Assessment, Problem
 from eval_harness.eval_types import Assessment, Problem
-from baseline_system.utils import get_assessment
+from ensemble_system.utils import get_assessment
 from utils import possibly_fix_json
 from rich import print as rprint
 # from scifytypes import likert_to_continuous
 from eval_harness.eval_types import likert_to_continuous
-import config
 
 load_dotenv()
 
@@ -108,7 +107,7 @@ def ensemble_with_retries(
             assessment.run_id = run_id
             assessment.problem_id = problem.problem_id
             assessment.problem_version = problem.problem_version
-            assessment.team = config.TEAM
+            assessment.team = "upenn"
             assessment.format_version = problem.format_version
             assessment.continuous_score = likert_to_continuous(assessment.likert_score)
             response["solution"]["assessment"] = assessment.model_dump()
