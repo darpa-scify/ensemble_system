@@ -1,0 +1,45 @@
+{
+    "gemini": {
+        "gemini-2.5-pro-preview-05-06": {
+            "input_price_per_token_under_200k": 1.25,
+            "input_price_per_token_over_200k": 2.50,
+            "output_price_per_token_under_200k": 10.00,
+            "output_price_per_token_over_200k": 15.00,
+            "cache_price_per_token_under_200k": 0.31,
+            "cache_price_per_token_over_200k": 0.625,
+            "cache_storage_price_per_hour": 4.50,
+            "grounding_search_price_per_1000": 35.0,
+            "threshold": 200000
+        }
+    },
+    "openai": {
+        "gpt-4o-mini": {
+            "input_price_per_token": 0.15,
+            "cached_price_per_token": 0.075,
+            "output_price_per_token": 0.60,
+            "web_search_cost_per_request": 0.025
+        },
+        "gpt-4o": {
+            "input_price_per_token": 2.50,
+            "cached_price_per_token": 1.25,
+            "output_price_per_token": 10.00,
+            "web_search_cost_per_request": 0.025
+        }
+    },
+    "anthropic": {
+        "claude-sonnet-4-20250514": {
+            "input_price_per_token": 15.0,
+            "cache_write_price_per_token": 18.75,
+            "cache_read_price_per_token": 1.5,
+            "output_price_per_token": 75.0,
+            "web_search_cost_per_request": 0.01
+        },
+        "claude-opus-4-20250514": {
+            "input_price_per_token": 15.0,
+            "cache_write_price_per_token": 18.75,
+            "cache_read_price_per_token": 1.5,
+            "output_price_per_token": 75.0,
+            "web_search_cost_per_request": 0.01
+        }
+    }
+}
