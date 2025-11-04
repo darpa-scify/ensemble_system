@@ -8,6 +8,8 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+analysis/
+confidence_calliberation_analysis/
 build/
 develop-eggs/
 dist/

@@ -18,10 +18,6 @@ load_dotenv()
 
 client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 model_name = "claude-sonnet-4-5-20250929"
-SYSTEM_PROMPT = (
-    open("prompts/BASELINE_ENSEMBLE_PROMPT_IMPROVED_V2.md", "r", encoding="utf-8").read().strip()
-)
-
 
 def ensemble(run_id: str, problem: Problem, assessments: list[Assessment]):
     if not assessments:
@@ -51,15 +47,29 @@ def ensemble(run_id: str, problem: Problem, assessments: list[Assessment]):
             },
         }
 
+    SYSTEM_PROMPT = (
+        open("prompts/BASELINE_ENSEMBLE_PROMPT_V3_1.md", "r", encoding="utf-8").read().strip()
+
+    )
+
     input_jsons = "\n\n".join([assessment.to_json() for assessment in assessments])
+
     assessment_schema = json.dumps(Assessment.model_json_schema(), indent=2)
-    input_message = f"""Assessment Schema (for reference - each assessment below follows this structure):
+    claim_text = problem.claim
+    input_message = f"""**THE CLAIM:**
+{claim_text}
+    
+Assessment Schema (for reference - each assessment below follows this structure):
 {assessment_schema}
 
 - Assessments to ensemble :
 {input_jsons}"""
 
     rprint(f"Ensembling {len(assessments)} assessments")
+    # print("\n" + "=" * 60)
+    # print(f"System Prompt: {SYSTEM_PROMPT}")
+    # print(f"Input Message: {input_message}")
+    # print("\n" + "=" * 60)
     response = client.with_options(timeout=600).messages.create(
         model=model_name,
         max_tokens=10000,
@@ -91,6 +101,7 @@ def ensemble(run_id: str, problem: Problem, assessments: list[Assessment]):
     }
 
     assessment = get_assessment(response_dict, redirects=True)
+    # print(f"get_assessment in ensemble passed: {assessment.model_dump()}")
     response_dict["solution"]["assessment"] = assessment.model_dump()
     return response_dict
 
@@ -104,6 +115,7 @@ def ensemble_with_retries(
             response = ensemble(run_id, problem, assessments)
             response["run_id"] = run_id
             assessment = get_assessment(response, redirects=True)
+            # print(f"get_assessment in ensemble_with_retries passed: {assessment.model_dump()}")
             assessment.run_id = run_id
             assessment.problem_id = problem.problem_id
             assessment.problem_version = problem.problem_version

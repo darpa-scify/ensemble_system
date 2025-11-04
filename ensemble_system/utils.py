@@ -52,6 +52,7 @@ def possibly_fix_json(json_output: str) -> str:
 
 def get_assessment(response_dict: Dict, redirects: bool = False) -> Assessment:
     json_output = response_dict["solution"]["json_output"]
+    # print(json_output)
     json_dict = json.loads(json_output)
     try:
         if redirects:

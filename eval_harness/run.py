@@ -105,6 +105,7 @@ class EvalHarness:
                 result = self.run_one_problem(problem)
                 # append it to the running completions
                 system_results.append(result)
+                # break
             except KeyboardInterrupt:
                 # handle a manual interrupt
                 rprint(
@@ -371,28 +372,28 @@ def assess_problems(
                 f"\n{extra_gold_ids}"
             )
 
-    # deduplicate based on (claim, artifacts) - possible reuse of problem_id, possible duplicates
-    # check for reused problem_ids
-    seen_problem_ids = {}  # problem_id -> problem
-    for problem in problems:
-        if problem.problem_id in seen_problem_ids:
-            # though we could disambiguate by filename, this means injecting additional context into the Problem
-            # type that is filesystem-specific, and having to make sure the gold label is disambiguated the same way
-            # -- for now, we'll just raise an error to prevent any future foot-guns since this doesn't happen in the
-            # data we have so far.
-            raise RuntimeError(f"Found a duplicate problem ID: {problem.problem_id}.")
-        else:
-            seen_problem_ids[problem.problem_id] = problem
+    # # deduplicate based on (claim, artifacts) - possible reuse of problem_id, possible duplicates
+    # # check for reused problem_ids
+    # seen_problem_ids = {}  # problem_id -> problem
+    # for problem in problems:
+    #     if problem.problem_id in seen_problem_ids:
+    #         # though we could disambiguate by filename, this means injecting additional context into the Problem
+    #         # type that is filesystem-specific, and having to make sure the gold label is disambiguated the same way
+    #         # -- for now, we'll just raise an error to prevent any future foot-guns since this doesn't happen in the
+    #         # data we have so far.
+    #         raise RuntimeError(f"Found a duplicate problem ID: {problem.problem_id}.")
+    #     else:
+    #         seen_problem_ids[problem.problem_id] = problem
 
-    # check for identical problems
-    seen_problems = []
-    for problem in problems.copy():
-        if (problem.claim, problem.artifacts) in seen_problems:
-            rprint(f"[bold yellow]Problem {problem.problem_id} is a duplicate, discarding[/bold yellow]")
-            problems.remove(problem)
-            gold_labels.remove(next(g for g in gold_labels if g.problem_id == problem.problem_id))
-        else:
-            seen_problems.append((problem.claim, problem.artifacts))
+    # # check for identical problems
+    # seen_problems = []
+    # for problem in problems.copy():
+    #     if (problem.claim, problem.artifacts) in seen_problems:
+    #         rprint(f"[bold yellow]Problem {problem.problem_id} is a duplicate, discarding[/bold yellow]")
+    #         problems.remove(problem)
+    #         gold_labels.remove(next(g for g in gold_labels if g.problem_id == problem.problem_id))
+    #     else:
+    #         seen_problems.append((problem.claim, problem.artifacts))
 
     # TODO run N times and aggregate
     # TODO run workdir for v2

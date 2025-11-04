@@ -8,10 +8,8 @@ from eval_harness.eval_types import Assessment, Problem
 def baseline_ensemble(problem: Problem, ctx: EvalContext, num_attempts: int = 3) -> SystemResult:
     """Run all the other baseline systems, then ask Claude to merge them"""
     subsystem_configs = {
-        # "Claimspy_V1": ("runs/claimspy_v1_ICL_Agent_2", "ask_gemini_web_search", "claimspy_v1_ICL_Agent_2"),
-        "CodeScientist": ("runs/codescientist", "codescientist_run1_oct3", "codescientist"),
-        "ScholarQA": ("runs/scholar_qa", "scholar_qa_run1_oct4", "scholarqa"),
-        "Claimspy_V2": ("runs/claimspy_v2", "claimspy_v2", "claimspy_v2"),
+        "ScholarQA": ("runs/eval/sprint1_eval_scholarqa_assessments_all", "scholar_qa", "scholarqa"),
+        "Claimspy_V2": ("runs/eval/claimspy_v2_eval_all-internal-latest", "claimspy_V2", "claimspy_v2"),
     }
     
     assessments = []
@@ -21,6 +19,7 @@ def baseline_ensemble(problem: Problem, ctx: EvalContext, num_attempts: int = 3)
         try:
             # Construct path: base_dir/problem_id/run_id.json
             eval_file = Path(base_dir) / problem.problem_id / f"{fname}.json"
+            # print(f"Reading assessment from {eval_file}")
             
             if not eval_file.exists():
                 print(f"File not found: {eval_file}")
@@ -30,6 +29,7 @@ def baseline_ensemble(problem: Problem, ctx: EvalContext, num_attempts: int = 3)
             with open(eval_file, 'r') as f:
                 data = json.load(f)
             
+            # print(type(data))
             # Extract assessment from ["solution"]["assessment"]
             assessment = data.get("solution").get("assessment")
             assessment["run_id"] = run_id  # Add run_id to assessment for tracking
